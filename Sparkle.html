@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPARKLE OMNI | Mobile Elite</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;400;900&family=Space+Grotesk:wght@300;700&family=Playfair+Display:ital,wght@1,900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00ffcc;
+            --primary-glow: rgba(0, 255, 204, 0.3);
+            --bg: #030303;
+            --text: #ffffff;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.1);
+            --font-main: 'Outfit', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: var(--bg); color: var(--text); font-family: var(--font-main); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+
+        /* --- NAV (Mobile Responsive) --- */
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(3, 3, 3, 0.8);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo { font-weight: 900; font-size: 1rem; letter-spacing: -1px; }
+        .logo span { color: var(--primary); }
+
+        /* --- HERO (Adaptive Layout) --- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 20px 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-text { z-index: 10; width: 100%; }
+        
+        /* Fluid Typography */
+        .hero h1 {
+            font-size: clamp(3rem, 15vw, 10rem);
+            line-height: 0.9;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -2px;
+        }
+
+        .hero h1 i {
+            font-family: 'Playfair Display', serif;
+            text-transform: lowercase;
+            -webkit-text-stroke: 1px var(--primary);
+            color: transparent;
+        }
+
+        .hero-visual {
+            position: absolute;
+            right: 0; top: 0;
+            width: 100%; height: 100%;
+            z-index: 1;
+            opacity: 0.4; /* Fades for mobile readability */
+        }
+
+        .hero-image-wrapper {
+            width: 100%; height: 100%;
+            background: url('https://images.unsplash.com/photo-1635332252431-86566270081d?auto=format&fit=crop&w=1500&q=80');
+            background-size: cover;
+            background-position: center;
+            filter: grayscale(0.5) contrast(1.2);
+            animation: pan-slow 20s infinite alternate;
+        }
+
+        @keyframes pan-slow {
+            from { transform: scale(1.1); }
+            to { transform: scale(1.3); }
+        }
+
+        /* --- BENTO GRID (Mobile Adaptive) --- */
+        .section-title { padding: 60px 20px 30px; }
+        .section-title h2 { font-size: 0.7rem; letter-spacing: 4px; color: var(--primary); text-transform: uppercase; }
+
+        .bento {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 15px;
+            padding: 0 20px 60px;
+        }
+
+        .b-item {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 30px;
+            min-height: 250px;
+        }
+
+        /* Desktop Spans */
+        .b-1 { grid-column: span 8; grid-row: span 2; }
+        .b-2 { grid-column: span 4; grid-row: span 2; }
+        .b-3 { grid-column: span 4; grid-row: span 2; }
+        .b-4 { grid-column: span 8; grid-row: span 2; }
+
+        .b-photo {
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.3;
+        }
+
+        .b-item h3 { font-size: 1.5rem; margin-bottom: 8px; font-weight: 900; }
+        .b-item p { color: #aaa; font-size: 0.85rem; line-height: 1.4; }
+
+        /* --- MOBILE BENTO OVERRIDE --- */
+        @media (max-width: 768px) {
+            .b-1, .b-2, .b-3, .b-4 { grid-column: span 12; }
+            .hero-text { text-align: center; }
+            .hero-visual { width: 100%; opacity: 0.25; }
+            .hero h1 { letter-spacing: -1px; }
+        }
+
+        /* --- SPLIT VIEW (Mobile Responsive) --- */
+        .split-view {
+            display: flex;
+            flex-direction: row;
+            height: 60vh;
+            border-top: 1px solid var(--border);
+        }
+
+        @media (max-width: 600px) {
+            .split-view { flex-direction: column; height: 80vh; }
+        }
+
+        .split-box {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .split-img {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            filter: grayscale(1);
+        }
+
+        .split-label {
+            z-index: 10;
+            background: rgba(0,0,0,0.8);
+            padding: 8px 20px;
+            border: 1px solid var(--primary);
+            font-family: 'Space Grotesk';
+            font-size: 0.6rem;
+            letter-spacing: 2px;
+        }
+
+        /* --- PRICING (Mobile Stack) --- */
+        .pricing {
+            background: #080808;
+            padding: 80px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .p-card {
+            width: 100%;
+            max-width: 400px;
+            background: linear-gradient(145deg, #111, #000);
+            padding: 40px 30px;
+            border-radius: 32px;
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .p-card.featured {
+            border: 1px solid var(--primary);
+            box-shadow: 0 0 30px var(--primary-glow);
+        }
+
+        .price { font-size: 3.5rem; font-weight: 100; margin: 20px 0; font-family: 'Space Grotesk'; }
+
+        .btn-lux {
+            display: block;
+            padding: 18px;
+            background: #fff;
+            color: #000;
+            text-decoration: none;
+            font-weight: 900;
+            border-radius: 100px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.8rem;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            padding: 60px 20px;
+            text-align: center;
+            border-top: 1px solid var(--border);
+        }
+
+        .massive-logo {
+            font-size: 20vw;
+            font-weight: 900;
+            opacity: 0.05;
+            line-height: 1;
+            margin-bottom: 30px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">SPARKLE <span>OMNI</span></div>
+        <div style="font-family: 'Space Grotesk'; font-size: 0.6rem; letter-spacing: 1px; color: var(--primary);">
+            LIVE SENSOR: ACTIVE
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-visual">
+            <div class="hero-image-wrapper"></div>
+        </div>
+        
+        <div class="hero-text">
+            <p style="color: var(--primary); letter-spacing: 3px; font-weight: 700; font-size: 0.7rem; margin-bottom: 15px;">ADVANCED MOLECULAR SYSTEM</p>
+            <h1>Beyond <br> <i>Liquid</i> Shield</h1>
+            <p style="font-size: 1rem; color: #aaa; max-width: 100%; margin-top: 20px; line-height: 1.5;">
+                Invisible ceramic armor engineered for the world's most premium materials.
+            </p>
+            <div style="margin-top: 40px;">
+                <a href="#pricing" class="btn-lux" style="display: inline-block; padding: 20px 40px;">Order Allocation</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-title">
+        <h2>Specifications</h2>
+    </section>
+
+    <section class="bento">
+        <div class="b-item b-1">
+            <div class="b-photo" style="background-image: url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1200&q=80');"></div>
+            <h3>9H Matrix</h3>
+            <p>Aerospace-grade ceramic hardness that bonds at a sub-atomic level.</p>
+        </div>
+        <div class="b-item b-2">
+            <div class="b-photo" style="background-image: url('https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&w=800&q=80');"></div>
+            <h3>Eco Safe</h3>
+            <p>100% non-toxic and infant-safe formula.</p>
+        </div>
+        <div class="b-item b-3">
+            <div class="b-photo" style="background-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80');"></div>
+            <h3>Self-Healing</h3>
+            <p>Micro-abrasions vanish under warmth.</p>
+        </div>
+        <div class="b-item b-4">
+            <div class="b-photo" style="background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80');"></div>
+            <h3>Oleophobic</h3>
+            <p>Highest level of oil and smudge rejection ever achieved.</p>
+        </div>
+    </section>
+
+    <section class="split-view">
+        <div class="split-box">
+            <div class="split-img" style="background-image: url('https://images.unsplash.com/photo-1517646272502-9836880da98d?auto=format&fit=crop&w=1200&q=80');"></div>
+            <div class="split-label">RAW SURFACE</div>
+        </div>
+        <div class="split-box" style="border-top: 1px solid var(--primary);">
+            <div class="split-img" style="background-image: url('https://images.unsplash.com/photo-1517646272502-9836880da98d?auto=format&fit=crop&w=1200&q=80'); filter: grayscale(0) brightness(1.1);"></div>
+            <div class="split-label" style="background: var(--primary); color: #000;">OMNI SHIELD</div>
+        </div>
+    </section>
+
+    <section id="pricing" class="pricing">
+        <div class="p-card">
+            <p style="text-transform: uppercase; letter-spacing: 2px; font-size: 0.6rem; color: var(--primary);">Personal Tier</p>
+            <div class="price">$1,450</div>
+            <ul style="list-style: none; text-align: left; margin-bottom: 30px; color: #888; font-size: 0.8rem;">
+                <li style="margin-bottom: 8px;">✦ 500ml Omni-Mist</li>
+                <li style="margin-bottom: 8px;">✦ Applicator Kit</li>
+            </ul>
+            <a href="#" class="btn-lux">Acquire</a>
+        </div>
+
+        <div class="p-card featured">
+            <p style="text-transform: uppercase; letter-spacing: 2px; font-size: 0.6rem; color: var(--primary);">Estate Allocation</p>
+            <div class="price">$4,800</div>
+            <ul style="list-style: none; text-align: left; margin-bottom: 30px; color: #888; font-size: 0.8rem;">
+                <li style="margin-bottom: 8px; color: #fff;">✦ 2L Industrial Conc.</li>
+                <li style="margin-bottom: 8px; color: #fff;">✦ Lifetime Support</li>
+            </ul>
+            <a href="#" class="btn-lux" style="background: var(--primary);">Inquire</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="massive-logo">OMNI.</div>
+        <p style="font-family: 'Space Grotesk'; font-size: 0.5rem; letter-spacing: 3px; opacity: 0.5; text-transform: uppercase;">
+            Swiss Engineering // Global Delivery
+        </p>
+        <p style="margin-top: 15px; color: #444; font-size: 0.6rem;">© 2026 OMNI SURFACE LABORATORY AG.</p>
+    </footer>
+
+</body>
+</html>
